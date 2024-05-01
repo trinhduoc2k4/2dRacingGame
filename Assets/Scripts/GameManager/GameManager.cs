@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +8,7 @@ public class GameManager : MonoBehaviour
     private int highScore;
     public TextMeshProUGUI highScoreText, scoreText;
     private ScoreManager scoreManager;
-    public GameObject gameOverPanel, gameStartPanel;
-    public Toggle playPause;
+    public GameObject gameOverPanel, gameStartPanel, gamePausePanel;
     public static bool isRestart;
     public AudioSource bgSound;
     private void Awake()
@@ -23,7 +19,8 @@ public class GameManager : MonoBehaviour
     {
         scoreManager = GameManager.FindObjectOfType<ScoreManager>();
         gameOverPanel.SetActive(false);
-        Time.timeScale = 0;
+        Time.timeScale = 1;
+        //Time.timeScale = 0;
         bgSound = GetComponent<AudioSource>();  
 
         if(isRestart) Play();
@@ -37,8 +34,8 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + scoreManager.score.ToString();
 
 
-        if (playPause.isOn && !PlayerController.instance.isTrigger && !gameStartPanel.activeSelf) Time.timeScale = 1;
-        else Time.timeScale = 0;
+        //if (playPause.isOn && !PlayerController.instance.isTrigger && !gameStartPanel.activeSelf) Time.timeScale = 1;
+        //else Time.timeScale = 0;
     }
 
     public void Restart()
@@ -53,5 +50,22 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         isRestart = false;
         bgSound.Play();
+    }
+
+    public void ShowGamePausePanel()
+    {
+        gamePausePanel.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void Resume()
+    {
+        gamePausePanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

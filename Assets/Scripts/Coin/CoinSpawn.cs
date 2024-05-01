@@ -13,6 +13,7 @@ public class CoinSpawn : MonoBehaviour
 
     void Coins()
     {
+        if (GameManager.instance.gameStartPanel.activeSelf) return;
         float randomPos = Random.Range(-1.95f, 1.95f);
         GameObject newCoinSpawner = Instantiate(coinPrefab, new Vector3(randomPos, transform.position.y, transform.position.z), Quaternion.identity);
         newCoinSpawner.AddComponent<EnemyMovement>();

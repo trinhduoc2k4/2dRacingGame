@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
     {
         //if (verticalInput > 0)
         //{
-            transform.position += new Vector3(horizontalInput * Time.fixedDeltaTime * horizontalSpeed, 0, 0);
+        if (GameManager.instance.gameStartPanel.activeSelf) return;
+        transform.position += new Vector3(horizontalInput * Time.fixedDeltaTime * horizontalSpeed, 0, 0);
             
             if (horizontalInput > 0) transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 80), rotationSpeed * Time.fixedDeltaTime);
             else if (horizontalInput < 0) transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 100), rotationSpeed * Time.fixedDeltaTime);

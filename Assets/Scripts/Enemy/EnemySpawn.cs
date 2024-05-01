@@ -13,6 +13,7 @@ public class EnemySpawn : MonoBehaviour
 
     void Cars()
     {
+        if (GameManager.instance.gameStartPanel.activeSelf) return; 
         int random = Random.Range(0, lstEnemy.Length);
         float randomPos = Random.Range(-1.95f, 1.95f);
         GameObject newEnemySpawner = Instantiate(lstEnemy[random], new Vector3(randomPos, transform.position.y, transform.position.z), Quaternion.Euler(0,0, 90));
